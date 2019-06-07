@@ -21,8 +21,8 @@ public class User implements Serializable {
 	private static final long serialVersionUID = -3720062967489912501L;
 	/**ID号*/
 	@Id // 表明此列为主键
-	@Column(name = "id") //数据库的字段名
 	@GeneratedValue(strategy = GenerationType.IDENTITY) //主键生成规则,当你使用它的添加方法时会用到
+	@Column(name = "id") //数据库的字段名
 	private Integer id;
 	/**用户名*/
 	@Column(name = "username")

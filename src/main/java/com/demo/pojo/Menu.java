@@ -3,28 +3,57 @@ package com.demo.pojo;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+@Table(name = "sys_menus")
 public class Menu implements Serializable{
 	private static final long serialVersionUID = -8805983256624854549L;
 	/**菜单ID*/
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
 	private Integer id;
 	/**菜单名称*/
+	@Column(name = "name")
 	private String  name;
 	/**菜单对应的url*/
+	@Column(name = "url")
 	private String  url;
 	/**菜单类型(按钮还是普通列表)*/
+	@Column(name = "type")
 	private Integer type;
 	/**菜单顺序号*/
+	@Column(name = "sort")
 	private Integer sort;
 	/**备注*/
+	@Column(name = "note")
 	private String  note;
 	/**上级菜单id*/
+	@Column(name = "parentId")
 	private Integer parentId;
 	/**资源标识(访问此菜单的权限标识)*/
+	@Column(name = "permission")
 	private String  permission;
+	/**创建日期*/
+	@JsonFormat(pattern = "yyyy-MM-dd")
+	@Column(name = "createdTime")
 	private Date createdTime;
+	/**修改日期*/
+	@JsonFormat(pattern = "yyyy-MM-dd")
+	@Column(name = "modifiedTime")
     private Date modifiedTime;
+	/**创建用户*/
+	@Column(name = "createdUser")
     private String createdUser;
+	/**修改用户*/
+	@Column(name = "modifiedUser")
     private String modifiedUser;
+	
 	public Integer getId() {
 		return id;
 	}
