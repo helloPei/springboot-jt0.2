@@ -17,22 +17,27 @@ import tk.mybatis.mapper.common.BaseMapper;
  */
 @Mapper
 public interface UserMapper extends BaseMapper<User>{
-	/**保存用户自身信息*/
-	int insertObject(User user);
-	/**更新用户自身信息*/
-	int updateObject(User user);
-	/**基于用户名获取用户对象*/
-	User findUserByUserName(String username);
-	/**基于用户名查询记录总数*/
-	int getRowCount(@Param("username")String username);
-	/**负责对用户信息执行禁用或启用操作*/
-	int validById(@Param("id")Integer id, @Param("valid")Integer valid, @Param("modifiedUser")String modifiedUser);
+	
+//	/**保存用户自身信息*/
+//	int insertObject(User user);
+	
+//	/**基于用户名获取用户对象*/
+//	User findUserByUserName(String username);
+	
+//	/**基于用户名查询记录总数*/
+//	int getRowCount(@Param("username")String username);
+	
+//	/**更新用户自身信息*/
+//	int updateObject(User user);
+	
+//	/**负责对用户信息执行禁用或启用操作*/
+//	@Update("update sys_users set valid=#{valid}, modifiedUser=#{modifiedUser}, modifiedTime=now() where id=#{id}")
+//	int validById(@Param("id")Integer id, @Param("valid")Integer valid, @Param("modifiedUser")String modifiedUser);
+	
 	/**查询用户以及用户对应的部门信息*/
 	UserDeptResult findObjectById(Integer id);
+	
 	/**分页查询用户以及对应的部门信息*/
-	List<UserDeptResult> findPageObjects(
-			@Param("username")String username, 
-			@Param("startIndex")Integer startIndex,
-			@Param("pageSize")Integer pageSize
-	);
+	List<UserDeptResult> findPageObjects(@Param("username")String username);
+	
 }

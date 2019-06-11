@@ -22,13 +22,13 @@
 	//初始化分页信息
 	function doSetPagination(pageObject) {
 		//初始化页面分页数据
-		$(".rowCount").html("总记录数(" + pageObject.rowCount + ")");
-		$(".pageCount").html("总页数(" + pageObject.pageCount + ")");
-		$(".pageCurrent").html("当前页(" + pageObject.pageCurrent + ")");
+		$(".rowCount").html("总记录数(" + pageObject.size * pageObject.pages + ")");
+		$(".pageCount").html("总页数(" + pageObject.pages + ")");
+		$(".pageCurrent").html("当前页(" + pageObject.pageNum + ")");
 		//绑定数据(将相关数据保存到某个对象上)
 		//data(key,[value]) 用于在某个对象上绑定或获取值
-		$("#pageId").data("pageCurrent", pageObject.pageCurrent);
-		$("#pageId").data("pageCount", pageObject.pageCount);
+		$("#pageId").data("pageCurrent", pageObject.pageNum);
+		$("#pageId").data("pageCount", pageObject.pages);
 	}
 	//基于pageCurrent进行下一步的查询
 	function doJumpToPage() {

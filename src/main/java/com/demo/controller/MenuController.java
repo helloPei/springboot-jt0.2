@@ -19,6 +19,7 @@ import com.demo.service.MenuService;
 @RequestMapping("/menu/")
 @RequiresPermissions("menu")
 public class MenuController {
+	
 	@Autowired
 	private MenuService menuService;
 	
@@ -27,12 +28,14 @@ public class MenuController {
 	public String doMenuListUI(){
 	  return "sys/menu_list";
 	}
+	
 	/**菜单编辑页面*/
     @RequestMapping("doMenuEditUI")
     @RequiresPermissions(value = {"addMenu", "updateMenu"})
 	public String doMenuEditUI(){
 		 return "sys/menu_edit";
 	}
+    
     /**添加菜单*/
     @RequestMapping("doSaveObject")
     @ResponseBody
@@ -44,6 +47,7 @@ public class MenuController {
     	int rows = menuService.saveObject(menu);
     	return new JsonResult("Save OK！", rows);
     }
+    
     /**删除菜单*/
     @RequestMapping("doDeleteObject")
     @RequiresPermissions("deleteMenu")
@@ -58,6 +62,7 @@ public class MenuController {
     	int rows = menuService.deleteObject(id);
     	return new JsonResult("Delete OK！", rows);
     }
+    
     /**修改菜单*/
     @RequestMapping("doUpdateObject")
     @ResponseBody
@@ -69,6 +74,7 @@ public class MenuController {
     	int rows = menuService.updateObject(menu);
     	return new JsonResult("Update OK！", rows);
     }
+    
     /**菜单查询*/
     @RequestMapping("doFindObjects")
     @ResponseBody
@@ -76,6 +82,7 @@ public class MenuController {
     	List<Map<String, Object>> list = menuService.findObjects();
     	return new JsonResult(list);
     }
+    
     /**菜单树节点数据查询*/
     @RequestMapping("doFindZtreeMenuNodes")
     @ResponseBody
@@ -83,4 +90,5 @@ public class MenuController {
     	List<Node> list = menuService.findZtreeMenuNodes();
 		return new JsonResult(list);
 	}
+    
 }

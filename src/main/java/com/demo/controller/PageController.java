@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/")
 public class PageController {
+	
 	/**
 	 * Login登录页面
 	 * @return
@@ -14,6 +15,7 @@ public class PageController {
 	public String doLoginUI(){
 		return "login";
 	}
+	
 	/**
 	 * Index主页
 	 * @return
@@ -22,6 +24,7 @@ public class PageController {
 	public String doIndexUI(){
 		return "index";
 	}
+	
 	/**
 	 * Page分页页面
 	 * @return
@@ -30,4 +33,5 @@ public class PageController {
 	public String doPageUI(){
 		return "common/page";
 	}
+	
 }

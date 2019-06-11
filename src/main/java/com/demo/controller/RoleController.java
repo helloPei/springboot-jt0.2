@@ -18,6 +18,7 @@ import com.github.pagehelper.PageInfo;
 @RequestMapping("/role/")
 @RequiresPermissions("role")
 public class RoleController {
+	
 	 @Autowired
 	 private RoleService roleService;
 	 
@@ -26,12 +27,14 @@ public class RoleController {
 	 public String doRoleListUI(){
 		 return "sys/role_list";
 	 }
+	 
 	 /**角色编辑页面*/
 	 @RequestMapping("doRoleEditUI")
 	 @RequiresPermissions(value = {"addRole", "updateRole"})
 	 public String doRoleEditUI(){
 		 return "sys/role_edit";
 	 }
+	 
 	 /**查询角色*/
 	 @RequestMapping("doFindRoles")
 	 @ResponseBody
@@ -39,6 +42,7 @@ public class RoleController {
 	    List<CheckBox> list = roleService.findObjects();
 	    return new JsonResult(list);
 	 }
+	 
 	 /**根据ID查询角色*/
 	 @RequestMapping("doFindObjectById")
 	 @ResponseBody
@@ -46,6 +50,7 @@ public class RoleController {
 		 Map<String,Object> map = roleService.findObjectById(id);
 		 return new JsonResult(map);
 	 }
+	 
 	 /**查询当前页面角色信息*/
 	 @RequestMapping("doFindPageObjects")
 	 @ResponseBody
@@ -53,6 +58,7 @@ public class RoleController {
 		 PageInfo<Role> roleList = roleService.findPageObjects(name, pageCurrent);
 		 return new JsonResult(roleList);
 	 }
+	 
 	 /**添加角色*/
 	 @RequestMapping("doSaveObject")
 	 @ResponseBody
@@ -60,6 +66,7 @@ public class RoleController {
 		 roleService.saveObject(role, menuIds);
 		 return new JsonResult("save ok", 1);
 	 }
+	 
 	 /**修改角色*/
 	 @RequestMapping("doUpdateObject")
 	 @ResponseBody
@@ -67,6 +74,7 @@ public class RoleController {
 		 roleService.updateObject(role, menuIds);
 		 return new JsonResult("update ok", 1);
 	 }
+	 
 	 /**删除角色*/
 	 @RequestMapping("doDeleteObject")
 	 @RequiresPermissions("deleteRole")
@@ -75,4 +83,5 @@ public class RoleController {
 		 roleService.deleteObject(id);
 		 return new JsonResult("delete ok", 1);
 	 }
+	 
 }

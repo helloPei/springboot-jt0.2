@@ -3,11 +3,11 @@ package com.demo.pojo.vo;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+//import javax.persistence.Column;
+//import javax.persistence.GeneratedValue;
+//import javax.persistence.GenerationType;
+//import javax.persistence.Id;
+//import javax.persistence.Table;
 
 import com.demo.pojo.Dept;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -16,36 +16,36 @@ import com.fasterxml.jackson.annotation.JsonFormat;
  * @author Administrator
  *
  */
-@Table(name = "sys_user_roles") //对应数据库表名
+//@Table(name = "sys_user_roles") //对应数据库表名
 public class UserDeptResult implements Serializable{
 	private static final long serialVersionUID = 5477389876913514595L;
-	@Id // 表明此列为主键
-	@GeneratedValue(strategy = GenerationType.IDENTITY) //主键生成规则,当你使用它的添加方法时会用到
-	@Column(name = "id") //数据库的字段名
+//	@Id // 表明此列为主键
+//	@GeneratedValue(strategy = GenerationType.IDENTITY) //主键生成规则,当你使用它的添加方法时会用到
+//	@Column(name = "id") //数据库的字段名
 	private Integer id;
-	@Column(name = "username")
+//	@Column(name = "username")
 	private String username;
-	@Column(name = "password")
+//	@Column(name = "password")
 	private String password;//md5
-	@Column(name = "salt")
+//	@Column(name = "salt")
 	private String salt;
-	@Column(name = "email")
+//	@Column(name = "email")
 	private String email;
-	@Column(name = "mobile")
+//	@Column(name = "mobile")
 	private String mobile;
-	@Column(name = "valid")
+//	@Column(name = "valid")
 	private Integer valid = 1;
-	@Column(name = "dept")
+//	@Column(name = "dept")
 	private Dept dept;
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
-	@Column(name = "createdTime")
+//	@Column(name = "createdTime")
 	private Date createdTime;
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
-	@Column(name = "modifiedTime")
+//	@Column(name = "modifiedTime")
 	private Date modifiedTime;
-	@Column(name = "createdUser")
+//	@Column(name = "createdUser")
 	private String createdUser;
-	@Column(name = "modifiedUser")
+//	@Column(name = "modifiedUser")
 	private String modifiedUser;
 	
 	public Integer getId() {

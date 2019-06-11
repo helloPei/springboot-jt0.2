@@ -1,7 +1,10 @@
 package com.demo.service;
-import com.demo.common.vo.PageObject;
+
 import com.demo.pojo.Log;
+import com.github.pagehelper.PageInfo;
 
 public interface LogService{
-    PageObject<Log> findPageObjects(String username, Integer pageCurrent);
+	
+	PageInfo<Log> findPageObjects(String username, Integer pageCurrent);
+	
 }
