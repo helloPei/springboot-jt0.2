@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
+import com.demo.common.annotation.RequiredLog;
 import com.demo.common.exception.ServiceException;
 import com.demo.common.util.ShiroUtils;
 import com.demo.mapper.UserMapper;
@@ -46,6 +47,7 @@ public class UserServiceImpl implements UserService{
 		return userBO;
 	}
 	
+	@RequiredLog(operation="Save User")
 	@Transactional
 	@Override
 	public int saveObject(User user, Integer[] roleIds) {
@@ -74,8 +76,8 @@ public class UserServiceImpl implements UserService{
 		return row;
 	}
 	
-//	@RequiredLog(operation="更新用户信息")
 //	@RequiredClearCache
+	@RequiredLog(operation="Update User")
 	@Transactional
 	@Override
 	public int updateObject(User user, Integer[] roleIds) {
@@ -124,14 +126,14 @@ public class UserServiceImpl implements UserService{
 	/**
 		事务隔离级别：
 		事务隔离级别越高，并发性越差
-		通常默认成 @Transactional(isolation=Isolation.READ_COMMITTED)
+		通常默认成 @Transactional(isolation = Isolation.READ_COMMITTED)
 		READ_COMMITTED 可以提交其它用户未提交的数据
 		1)READ_UNCOMMITTED (此级别可能会出现脏读)
 		2)READ_COMMITTED(此级别可能会出现不可重复读)
 		3)REPEATABLE_READ(此级别可能会出现幻读)
 		4)SERIALIZABLE(多事务串行执行)
 	 */
-	@Transactional(isolation=Isolation.READ_COMMITTED)
+	@Transactional(isolation = Isolation.READ_COMMITTED)
 	@Override
 	public Map<String, Object> findObjectById(Integer id) {
 		//2.查询用户以及关联的部门信息
@@ -149,7 +151,7 @@ public class UserServiceImpl implements UserService{
 	}
 	
 //	@RequiredCache
-//	@RequiredLog(operation="query")
+	@RequiredLog(operation="Query User All")
 	@Override
 	public PageInfo<UserDeptResult> findPageObjects(String username, Integer pageCurrent) {
 		//2.依据条件获取总记录数

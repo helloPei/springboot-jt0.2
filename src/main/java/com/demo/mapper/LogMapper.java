@@ -19,6 +19,6 @@ public interface LogMapper extends BaseMapper<Log> {
 //    		@Param("pageSize")Integer pageSize
 //    );
 	
-	int insertObject(Log entity);
+//	int insertObject(Log entity);
 	
 }
