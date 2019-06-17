@@ -21,6 +21,7 @@ import com.demo.mapper.UserMapper;
 import com.demo.mapper.UserRoleMapper;
 import com.demo.pojo.User;
 import com.demo.pojo.vo.UserDeptResult;
+import com.demo.pojo.vo.UserRoles;
 import com.demo.service.UserService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -71,8 +72,14 @@ public class UserServiceImpl implements UserService{
 //		int row = userMapper.insertObject(user);
 		if(row != 1)throw new ServiceException("添加用户失败");
 		//2.6保存用户与角色的关系数据
-		int row1 = userRoleMapper.insertObject(user.getId(), roleIds);
-		if(row1 != 1)throw new ServiceException("添加用户与角色关系失败");
+		for(int i = 0; i < roleIds.length; i++) {
+			UserRoles userRoles = new UserRoles();
+			userRoles.setUserId(user.getId());
+			userRoles.setRoleId(roleIds[i]);
+			userRoleMapper.insert(userRoles);
+		}
+//		int row1 = userRoleMapper.insertObject(user.getId(), roleIds);
+//		if(row1 != 1)throw new ServiceException("添加用户与角色关系失败");
 		return row;
 	}
 	
@@ -86,15 +93,26 @@ public class UserServiceImpl implements UserService{
 		User modifiedUser = (User) SecurityUtils.getSubject().getPrincipal();
 		user.setModifiedUser(modifiedUser.getUsername());
 		user.setModifiedTime(new Date());
-		//2.5保存用户自身信息
+		//2.2保存用户自身信息
 		int row = userMapper.updateByPrimaryKeySelective(user);
 //		int row = userMapper.updateObject(user);
 		if(row != 1)throw new ServiceException("修改用户失败");
-		//2.6保存用户与角色的关系数据
-		int row1 = userRoleMapper.deleteObjectsByUserId(user.getId());
-		if(row1 != 1)throw new ServiceException("删除用户与角色关系失败");
-		int row2 = userRoleMapper.insertObject(user.getId(), roleIds);
-		if(row2 != 1)throw new ServiceException("添加用户与角色关系失败");
+		//2.3保存用户与角色的关系数据
+		//2.3.1删除原有关联记录
+		UserRoles userRolesDel = new UserRoles();
+		userRolesDel.setUserId(user.getId());
+		userRoleMapper.delete(userRolesDel);
+//		int row1 = userRoleMapper.deleteObjectsByUserId(user.getId());
+//		if(row1 != 1)throw new ServiceException("删除用户与角色关系失败");
+		//2.3.2添加修改的关联记录
+		for(int i = 0; i < roleIds.length; i++) {
+			UserRoles userRoles = new UserRoles();
+			userRoles.setUserId(user.getId());
+			userRoles.setRoleId(roleIds[i]);
+			userRoleMapper.insert(userRoles);
+		}
+//		int row2 = userRoleMapper.insertObject(user.getId(), roleIds);
+//		if(row2 != 1)throw new ServiceException("添加用户与角色关系失败");
 		return row;
 	}
 	

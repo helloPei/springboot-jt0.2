@@ -28,4 +28,5 @@ public interface RoleMapper extends BaseMapper<Role> {
 	/**查询所有角色的id,name字段的值，每行记录封装一个checbox对象*/
 	@Select("select id,name from sys_roles")
 	List<CheckBox> findObjects();
+	
 }

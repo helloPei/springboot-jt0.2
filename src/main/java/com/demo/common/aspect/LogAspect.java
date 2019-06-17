@@ -110,13 +110,13 @@ public class LogAspect {
 			throws NoSuchMethodException{
 		//获取方法签名对象
 		MethodSignature ms = (MethodSignature)joinPoint.getSignature();
-		
-		//ms.getMethod();接口方法对象
-		//获取方法参数类型
-		Class<?>[] paramTypes = ms.getMethod().getParameterTypes();
-		//获取目标方法(先获取目标对象，再获取目标方法)
-		Method targetMethod = targetCls.getDeclaredMethod(ms.getName(), paramTypes);
-		return targetMethod;
+//		//获取方法参数类型
+//		Class<?>[] paramTypes = ms.getMethod().getParameterTypes();
+//		//获取目标方法(先获取目标对象，再获取目标方法)
+//		Method targetMethod = targetCls.getDeclaredMethod(ms.getName(), paramTypes);
+//		return targetMethod;
+		Method method = ms.getMethod();//获取接口方法对象
+		return method;
 	}
 	
 }

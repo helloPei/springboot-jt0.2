@@ -17,6 +17,8 @@ import com.demo.mapper.RoleMapper;
 import com.demo.mapper.RoleMenuMapper;
 import com.demo.mapper.UserRoleMapper;
 import com.demo.pojo.Role;
+import com.demo.pojo.vo.RoleMenus;
+import com.demo.pojo.vo.UserRoles;
 import com.demo.service.RoleService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -46,8 +48,7 @@ public class RoleServiceImpl implements RoleService {
 	@Override
 	public Map<String, Object> findObjectById(Integer id) {
 		//1.合法性验证
-		if(id == null || id < 1)
-			throw new IllegalArgumentException("id的值无效");
+		if(id == null || id < 1)throw new IllegalArgumentException("id的值无效");
 		//2.基于id查询角色自身信息
 		Role role = roleMapper.selectByPrimaryKey(id);
 //		Role role = roleMapper.findObjectById(id);
@@ -78,7 +79,13 @@ public class RoleServiceImpl implements RoleService {
 		int rows = roleMapper.insert(role);
 //		int rows = roleMapper.insertObject(role);
 		//3.保存角色和菜单的关系数据
-		roleMenuMapper.insertObject(role.getId(), menuIds);
+		for(int i = 0; i < menuIds.length; i++) {
+			RoleMenus roleMenus = new RoleMenus();
+			roleMenus.setRoleId(role.getId());
+			roleMenus.setMenuId(menuIds[i]);
+			roleMenuMapper.insert(roleMenus);
+		}
+//		roleMenuMapper.insertObject(role.getId(), menuIds);
 		return rows;
 	}
 	
@@ -98,9 +105,18 @@ public class RoleServiceImpl implements RoleService {
 		int rows = roleMapper.updateByPrimaryKeySelective(role);
 //		int rows = roleMapper.updateObject(role);
 		//3.删除旧的角色和菜单关系
-		roleMenuMapper.deleteObjectsByRoleId(role.getId());
+		RoleMenus roleMenusDel = new RoleMenus();
+		roleMenusDel.setRoleId(role.getId());
+		roleMenuMapper.delete(roleMenusDel);
+//		roleMenuMapper.deleteObjectsByRoleId(role.getId());
 		//4.保存角色和菜单新的关系数据
-		roleMenuMapper.insertObject(role.getId(), menuIds);
+		for(int i = 0; i < menuIds.length; i++) {
+			RoleMenus roleMenus = new RoleMenus();
+			roleMenus.setRoleId(role.getId());
+			roleMenus.setMenuId(menuIds[i]);
+			roleMenuMapper.insert(roleMenus);
+		}
+//		roleMenuMapper.insertObject(role.getId(), menuIds);
 		return rows;
 	}
 	
@@ -108,17 +124,19 @@ public class RoleServiceImpl implements RoleService {
 	@Transactional
 	public int deleteObject(Integer id) {
 		//1.验证参数的有效性
-		if(id == null || id < 1)
-			throw new IllegalArgumentException("参数值不正确");
+		if(id == null || id < 1)throw new IllegalArgumentException("参数值不正确");
 		//2.删除角色自身信息
 		int rows = roleMapper.deleteByPrimaryKey(id);
 //		int rows = roleMapper.deleteObject(id);
-		if(rows == 0)
-			throw new ServiceException("记录可能已经不存在");
+		if(rows == 0)throw new ServiceException("记录可能已经不存在");
 		//3.删除角色和菜单关系数据
-		roleMenuMapper.deleteObjectsByRoleId(id);
+		RoleMenus roleMenus = new RoleMenus();
+		roleMenus.setRoleId(id);
+		roleMenuMapper.delete(roleMenus);
 		//4.删除用户和角色关系数据
-		userRoleMapper.deleteObjectsByRoleId(id);
+		UserRoles userRoles = new UserRoles();
+		userRoles.setRoleId(id);
+		userRoleMapper.delete(userRoles);
 		return rows;
 	}
 	

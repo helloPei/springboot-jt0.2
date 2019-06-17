@@ -13,6 +13,7 @@ import com.demo.common.vo.Node;
 import com.demo.mapper.MenuMapper;
 import com.demo.mapper.RoleMenuMapper;
 import com.demo.pojo.Menu;
+import com.demo.pojo.vo.RoleMenus;
 import com.demo.service.MenuService;
 @Service
 public class MenuServiceImpl implements MenuService {
@@ -42,8 +43,11 @@ public class MenuServiceImpl implements MenuService {
 //		int row = menuMapper.deleteObject(id);
 		if(row != 1)throw new ServiceException("删除菜单失败");
 		//4.基于菜单id删除菜单与角色的关系数据
-		int row1 = roleMenuMapper.deleteObjectsByMenuId(id);
-		if(row1 != 1)throw new ServiceException("删除菜单与角色关系失败");
+		RoleMenus roleMenus = new RoleMenus();
+		roleMenus.setMenuId(id);
+		roleMenuMapper.delete(roleMenus);
+//		int row1 = roleMenuMapper.deleteObjectsByMenuId(id);
+//		if(row1 != 1)throw new ServiceException("删除菜单与角色关系失败");
 		return row;
 	}
 	

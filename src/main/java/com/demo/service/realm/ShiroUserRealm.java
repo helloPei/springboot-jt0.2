@@ -33,13 +33,18 @@ import com.demo.pojo.User;
  *
  */
 public class ShiroUserRealm extends AuthorizingRealm {//AuthenticationRealm(提供了认证数据的获取方法)
+	
 	private static Logger logger = Logger.getLogger(ShiroUserRealm.class);
+	
 	@Autowired
 	private UserMapper userMapper;
+	
 	@Autowired
 	private UserRoleMapper userRoleMapper;
+	
 	@Autowired
 	private RoleMenuMapper roleMenuMapper;
+	
 	@Autowired
 	private MenuMapper menuMapper;
 	//	自定义缓存map(缓存用户权限信息)，线程安全，高并发，红黑树ConcurrentHashMap
@@ -59,14 +64,12 @@ public class ShiroUserRealm extends AuthorizingRealm {//AuthenticationRealm(提�
 		User user = new User();
 		user.setUsername(username);
 		User userBO = userMapper.selectOne(user);
-		//User user = userMapper.findUserByUserName(username);
+//		User user = userMapper.findUserByUserName(username);
 		//3.对用名对象进行判定
 		//3.1判定用户是否存在
-		if(userBO == null)
-			throw new UnknownAccountException();//用户名不存在
+		if(userBO == null)throw new UnknownAccountException();//用户名不存在
 		//3.2判定用户是否被禁用
-		if(userBO.getValid() == 0)
-			throw new LockedAccountException();//用户已被禁用
+		if(userBO.getValid() == 0)throw new LockedAccountException();//用户已被禁用
 		//4.对用户相关信息进行认证(用户已有身份，密码，盐值等)
 		//4.1封装了一个字节数组以及一些编码操作
 		ByteSource credentialsSalt = ByteSource.Util.bytes(userBO.getSalt());
@@ -78,6 +81,7 @@ public class ShiroUserRealm extends AuthorizingRealm {//AuthenticationRealm(提�
 		//5.返回封装好的数据(返回给认证管理器)
 		return info;//交给认证管理器
 	}
+	
 	/**
 	 * Authorization授权处理
 	 */
@@ -110,11 +114,11 @@ public class ShiroUserRealm extends AuthorizingRealm {//AuthenticationRealm(提�
 				permissionSet.add(permission);
 			}
 		}
-		
 		SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
 		info.setStringPermissions(permissionSet);
 		//4.返回封装结果
 		authorMap.put(user.getUsername(), info);
 		return info;
 	}
+	
 }

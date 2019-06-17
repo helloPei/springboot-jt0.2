@@ -78,7 +78,7 @@
    		
     <!-- 基于id查询用户以及部门信息 -->
     <select id="findObjectById" resultMap="userDeptResult">
-   		select * from sys_users where id=#{id}
+   		select * from sys_users where id = #{id}
     </select>
     
     <!-- 借助vo对象关联查询 -->
@@ -87,7 +87,7 @@
     	1.直接量类型的值可以通过set方法直接赋值
     	2.对象类型类型的值可以通过再次查询进行数据封装 -->
     	<association property="dept" column="deptId"
-    			select="com.demo.mapper.DeptMapper.findById">
+    		select="com.demo.mapper.DeptMapper.findById">
     	</association><!-- 开启二次查询，基于部门id查询部门信息 -->
    </resultMap>
    
