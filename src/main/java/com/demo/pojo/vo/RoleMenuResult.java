@@ -1,11 +1,14 @@
 package com.demo.pojo.vo;
 
+import java.io.Serializable;
 import java.util.List;
 
 import com.demo.pojo.Role;
 
-public class RoleMenuResult {
+public class RoleMenuResult implements Serializable{
 	
+	private static final long serialVersionUID = -3358080803265560080L;
+
 	private Integer id;
 	
 	/**角色对象*/

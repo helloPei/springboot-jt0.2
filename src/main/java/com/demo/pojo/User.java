@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+
 /**
  * User实体类
  * @author Administrator
@@ -17,47 +18,60 @@ import com.fasterxml.jackson.annotation.JsonFormat;
  */
 @Table(name = "sys_users") //对应数据库表名
 public class User implements Serializable {
+	
 	/**实现序列化接口，生成序列号ID*/
 	private static final long serialVersionUID = -3720062967489912501L;
+	
 	/**ID号*/
 	@Id // 表明此列为主键
 	@GeneratedValue(strategy = GenerationType.IDENTITY) //主键生成规则,当你使用它的添加方法时会用到
 	@Column(name = "id") //数据库的字段名
 	private Integer id;
+	
 	/**用户名*/
 	@Column(name = "username")
 	private String username;
+	
 	/**密码*/
 	@Column(name = "password")
 	private String password;
+	
 	/**盐值*/
 	@Column(name = "salt")
 	private String salt;
+	
 	/**邮箱*/
 	//@Transient//忽略该字段,也就是该字段在表中不存在
 	@Column(name = "email")
 	private String email;
+	
 	/**电话号码*/
 	@Column(name = "mobile")
 	private String mobile;
+	
 	/**合法性等于1*/
 	@Column(name = "valid")
 	private Integer valid = 1;
+	
 	/**部门id*/
 	@Column(name = "deptId")
 	private Integer deptId;
+	
 	/**创建时间*/
 	//@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	@Column(name = "createdTime")
 	private Date createdTime;
+	
 	/**修改时间*/
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	@Column(name = "modifiedTime")
 	private Date modifiedTime;
+	
 	/**创建用户*/
 	@Column(name = "createdUser")
 	private String createdUser;
+	
 	/**修改用户*/
 	@Column(name = "modifiedUser")
 	private String modifiedUser;

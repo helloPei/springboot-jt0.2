@@ -1,4 +1,5 @@
 package com.demo.pojo;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -10,33 +11,43 @@ import javax.persistence.Table;
 
 @Table(name = "sys_depts")
 public class Dept implements Serializable{
+	
 	private static final long serialVersionUID = -5259265803332215029L;
+	
 	/**部门ID*/
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Integer id;
+	
 	/**部门名称*/
 	@Column(name = "name")
 	private String name;
+	
 	/**上级部门ID*/
 	@Column(name = "parentId")
 	private Integer parentId;
+	
 	/**顺序号*/
 	@Column(name = "sort")
 	private Integer sort;
+	
 	/**备注*/
 	@Column(name = "note")
 	private String note;
+	
 	/**创建日期*/
 	@Column(name = "createdTime")
 	private Date createdTime;
+	
 	/**修改日期*/
 	@Column(name = "modifiedTime")
 	private Date modifiedTime;
+	
 	/**创建用户*/
 	@Column(name = "createdUser")
 	private String createdUser;
+	
 	/**修改用户*/
 	@Column(name = "modifiedUser")
 	private String modifiedUser;

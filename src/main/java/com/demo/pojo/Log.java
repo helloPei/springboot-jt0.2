@@ -9,32 +9,42 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
 @Table(name = "sys_logs")
 public class Log implements Serializable {
+	
 	private static final long serialVersionUID = 1L;
+	
 	/**日志ID*/
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Integer id;
+	
 	/**用户名*/
 	@Column(name = "username")
 	private String username;
+	
 	/**用户操作**/
 	@Column(name = "operation")
 	private String operation;
+	
 	/**请求方法*/
 	@Column(name = "method")
 	private String method;
+	
 	/**请求参数*/
 	@Column(name = "params")
 	private String params;
+	
 	/**执行时长(毫秒)*/
 	@Column(name = "time")
 	private Long time;
+	
 	/**IP地址*/
 	@Column(name = "ip")
 	private String ip;
+	
 	/**创建时间*/
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	@Column(name = "createdTime")
